@@ -1,0 +1,15 @@
+
+<%- include('../partials/header') %>
+<h1>Dashboard</h1>
+<div class="stats">
+  <div class="stat"><div class="num"><%= stats.products %></div><div class="lbl">Products</div></div>
+  <div class="stat"><div class="num"><%= stats.categories %></div><div class="lbl">Categories</div></div>
+  <div class="stat"><div class="num"><%= stats.orders %></div><div class="lbl">Orders</div></div>
+</div>
+<nav class="admin-nav">
+  <a class="btn" href="/admin/products">Manage Products</a>
+  <a class="btn" href="/admin/categories">Manage Categories</a>
+  <a class="btn" href="/admin/orders">View Orders</a>
+  <a class="btn danger" href="/admin/logout">Logout</a>
+</nav>
+<%- include('../partials/footer') %>

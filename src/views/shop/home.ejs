@@ -1,0 +1,26 @@
+
+<%- include('../partials/header') %>
+<h1>New Arrivals</h1>
+<div class="grid">
+  <% products.forEach(p => { %>
+    <div class="card">
+      <a href="/product/<%= p.slug %>">
+        <img src="<%= p.image || '/public/placeholder.png' %>" alt="<%= p.title %>">
+        <h3><%= p.title %></h3>
+      </a>
+      <p class="price">NPR <%= p.price %></p>
+      <form method="post" action="/cart/add">
+        <input type="hidden" name="product_id" value="<%= p.id %>">
+        <button class="btn">Add to Cart</button>
+      </form>
+    </div>
+  <% }) %>
+</div>
+
+<h2>Categories</h2>
+<ul class="categories">
+  <% cats.forEach(c => { %>
+    <li><a href="/category/<%= c.slug %>"><%= c.name %></a></li>
+  <% }) %>
+</ul>
+<%- include('../partials/footer') %>

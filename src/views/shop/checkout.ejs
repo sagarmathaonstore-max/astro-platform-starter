@@ -1,0 +1,40 @@
+
+<%- include('../partials/header') %>
+<h1>Checkout</h1>
+<div class="checkout">
+  <div class="left">
+    <form method="post" action="/checkout">
+      <h3>Customer Details</h3>
+      <div class="grid2">
+        <label>Full Name<input name="name" required></label>
+        <label>Email<input type="email" name="email" required></label>
+        <label>Phone<input name="phone" required></label>
+        <label>Address<input name="address" required></label>
+        <label>City<input name="city" required></label>
+        <label>Region/Province<input name="region" required></label>
+      </div>
+      <h3>Delivery</h3>
+      <label><input type="radio" name="valley" value="inside" checked> Inside Kathmandu Valley (NPR 100)</label><br>
+      <label><input type="radio" name="valley" value="outside"> Outside Kathmandu Valley (NPR 180)</label>
+      <h3>Payment</h3>
+      <label><input type="radio" name="payment_method" value="cod" checked> Cash on Delivery</label><br>
+      <% if (stripePublishable) { %>
+      <label><input type="radio" name="payment_method" value="card"> Card (Stripe)</label>
+      <% } else { %>
+      <p class="muted">Card payments disabled (Stripe not configured).</p>
+      <% } %>
+      <button class="btn primary">Place Order</button>
+    </form>
+  </div>
+  <div class="right">
+    <h3>Order Summary</h3>
+    <ul>
+      <% cart.forEach(i => { %>
+        <li><%= i.title %> × <%= i.qty %> — NPR <%= i.price * i.qty %></li>
+      <% }) %>
+    </ul>
+    <p class="total">Subtotal: NPR <%= subtotal %></p>
+    <p class="muted">Delivery: NPR 100 (Inside) / NPR 180 (Outside)</p>
+  </div>
+</div>
+<%- include('../partials/footer') %>

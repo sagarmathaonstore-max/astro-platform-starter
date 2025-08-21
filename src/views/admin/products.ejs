@@ -1,0 +1,48 @@
+
+<%- include('../partials/header') %>
+<h1>Products</h1>
+
+<h3>Add Product</h3>
+<form method="post" action="/admin/products" enctype="multipart/form-data" class="narrow">
+  <label>Title<input name="title" required></label>
+  <label>Description<textarea name="description" rows="4"></textarea></label>
+  <div class="grid2">
+    <label>Price (NPR)<input type="number" name="price" required></label>
+    <label>Stock<input type="number" name="stock" required value="0"></label>
+  </div>
+  <label>Category
+    <select name="category_id">
+      <option value="">— None —</option>
+      <% cats.forEach(c => { %>
+        <option value="<%= c.id %>"><%= c.name %></option>
+      <% }) %>
+    </select>
+  </label>
+  <label>Image URL (optional)<input name="image" placeholder="https://..."></label>
+  <div class="muted">or upload file:</div>
+  <input type="file" name="imagefile" accept="image/*">
+  <button class="btn primary">Save</button>
+</form>
+
+<h3>All Products</h3>
+<table class="table">
+  <thead><tr><th>Image</th><th>Title</th><th>Price</th><th>Stock</th><th>Category</th><th>Created</th><th></th></tr></thead>
+  <tbody>
+    <% products.forEach(p => { %>
+      <tr>
+        <td><img class="thumb" src="<%= p.image || '/public/placeholder.png' %>"></td>
+        <td><a href="/product/<%= p.slug %>" target="_blank"><%= p.title %></a></td>
+        <td>NPR <%= p.price %></td>
+        <td><%= p.stock %></td>
+        <td><%= p.category || '-' %></td>
+        <td><%= p.created_at %></td>
+        <td>
+          <form method="post" action="/admin/products/<%= p.id %>/delete" onsubmit="return confirm('Delete product?')">
+            <button class="link danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('../partials/footer') %>

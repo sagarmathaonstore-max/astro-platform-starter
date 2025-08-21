@@ -1,0 +1,31 @@
+
+<%- include('../partials/header') %>
+<h1>Your Cart</h1>
+<% if (!cart.length){ %>
+  <p>Your cart is empty.</p>
+<% } else { %>
+  <form method="post" action="/cart/update">
+    <table class="table">
+      <thead><tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr></thead>
+      <tbody>
+        <% cart.forEach(i => { %>
+          <tr>
+            <td><img class="thumb" src="<%= i.image || '/public/placeholder.png' %>"> <%= i.title %></td>
+            <td>NPR <%= i.price %></td>
+            <td><input type="number" min="1" name="qty[<%= i.id %>]" value="<%= i.qty %>"></td>
+            <td>NPR <%= i.price * i.qty %></td>
+            <td>
+              <form method="post" action="/cart/remove">
+                <input type="hidden" name="id" value="<%= i.id %>">
+                <button class="link danger">Remove</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <p class="total">Subtotal: <strong>NPR <%= subtotal %></strong></p>
+    <p><button class="btn">Update Cart</button> <a class="btn primary" href="/checkout">Checkout</a></p>
+  </form>
+<% } %>
+<%- include('../partials/footer') %>

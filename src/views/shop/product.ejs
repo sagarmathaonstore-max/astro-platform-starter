@@ -1,0 +1,17 @@
+
+<%- include('../partials/header') %>
+<div class="product">
+  <img src="<%= p.image || '/public/placeholder.png' %>" alt="<%= p.title %>">
+  <div>
+    <h1><%= p.title %></h1>
+    <p class="muted">Category: <a href="/category/<%= p.cat_slug %>"><%= p.category %></a></p>
+    <p><%= p.description %></p>
+    <p class="price">NPR <%= p.price %></p>
+    <form method="post" action="/cart/add">
+      <input type="hidden" name="product_id" value="<%= p.id %>">
+      <label>Quantity <input type="number" min="1" value="1" name="qty"></label>
+      <button class="btn">Add to Cart</button>
+    </form>
+  </div>
+</div>
+<%- include('../partials/footer') %>

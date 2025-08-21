@@ -1,0 +1,10 @@
+
+<%- include('../partials/header') %>
+<h1>Thank you!</h1>
+<% if (orderId) { %>
+  <p>Your order <strong>#<%= orderId %></strong> has been placed successfully. A confirmation email has been sent.</p>
+<% } else { %>
+  <p>We couldn't verify your payment yet. If you paid, please contact support with your details.</p>
+<% } %>
+<p><a class="btn" href="/">Continue shopping</a></p>
+<%- include('../partials/footer') %>
