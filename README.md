@@ -1,51 +1,56 @@
-# Astro on Netlify Platform Starter
 
-[Live Demo](https://astro-platform-starter.netlify.app/)
+# Sagarmatha Store – Full E‑commerce (Express + SQLite)
 
-A modern starter based on Astro.js, Tailwind, and [Netlify Core Primitives](https://docs.netlify.com/core/overview/#develop) (Edge Functions, Image CDN, Blob Store).
+A production‑ready, single‑repo Node.js app with:
 
-## Astro Commands
+- Admin panel: categories, products, orders
+- Cart & checkout with delivery fees:
+  - NPR 100 Inside Kathmandu Valley
+  - NPR 180 Outside Kathmandu Valley
+- Payment methods:
+  - Cash on Delivery (always available)
+  - Card via Stripe Checkout (optional; provide keys)
+- Order notification email to **sagarmathaonstore@gmail.com** (configure SMTP in `.env`)
+- SQLite database (file-based, zero setup)
 
-All commands are run from the root of the project, from a terminal:
+## Quick Start
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```bash
+# 1) Create .env from example and edit values
+cp .env.example .env
 
-## Deploying to Netlify
+# 2) Install deps
+npm install
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/astro-platform-starter)
-
-## Developing Locally
-
-| Prerequisites                                                                |
-| :--------------------------------------------------------------------------- |
-| [Node.js](https://nodejs.org/) v18.14+.                                      |
-| (optional) [nvm](https://github.com/nvm-sh/nvm) for Node version management. |
-
-1. Clone this repository, then run `npm install` in its root directory.
-
-2. For the starter to have full functionality locally (e.g. edge functions, blob store), please ensure you have an up-to-date version of Netlify CLI. Run:
-
-```
-npm install netlify-cli@latest -g
+# 3) Run dev server
+npm run dev
+# or production
+npm start
 ```
 
-3. Link your local repository to the deployed Netlify site. This will ensure you're using the same runtime version for both local development and your deployed site.
+Open: http://localhost:3000
 
-```
-netlify link
-```
+### Default Admin
+- Email: `admin@example.com`
+- Password: `admin123`
+> To change password, update `ADMIN_PASSWORD_HASH` in `.env` (generate with https://bcrypt-generator.com or run a small script).
 
-4. Then, run the Astro.js development server via Netlify CLI:
+## Deploy
+- Any Node host (PM2, Render, Railway, VPS). Requires Node 18+.
+- Set env vars, ensure `BASE_URL` is your live domain (e.g. `https://yourdomain.com`).
 
-```
-netlify dev
-```
+## Stripe (Optional)
+- Add `STRIPE_SECRET_KEY` and `STRIPE_PUBLISHABLE_KEY` in `.env`
+- On checkout, select "Card" to be redirected to Stripe Checkout.
+- Success/Cancel URLs are handled by the app.
 
-If your browser doesn't navigate to the site automatically, visit [localhost:8888](http://localhost:8888).
+## SMTP / Emails
+- Use your SMTP provider credentials in `.env`.
+- Each successful order sends a detailed email to `ORDER_EMAIL_TO` (default: sagarmathaonstore@gmail.com).
+
+## File Uploads
+- Product images are accepted as URL or uploaded file (stored under `/public/uploads`).
+
+## Notes
+- Database auto-migrates on first run.
+- If you migrate from another platform, you can import products via Admin -> Products -> Add Product.
